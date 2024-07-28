@@ -1,15 +1,12 @@
-const express = require("express");
-const db = require("./config/dbConnection");
+const express = require('express');
+const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 3000;
-const chapter = require("./routes/chapter");
+const chapter = require('./routes/chapter');
 
-// app.get("/", (req, res) => {
-//   res.send("hello world");
-// });
-
-
-app.use("/api/v1", chapter);
+app.use(cors());
+app.use(express.json());
+app.use('/api/v1/chapters', chapter);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
