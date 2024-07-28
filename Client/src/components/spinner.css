@@ -1,0 +1,27 @@
+.custom-loader {
+    width: 150px;
+    height: 150px;
+    display: grid;
+    color: #FBB917;
+    background: 
+      linear-gradient(currentColor 0 0) center/100% 3px,
+      linear-gradient(currentColor 0 0) center/3px 100%;
+    background-repeat: no-repeat;
+    animation: s8 2s infinite;
+  }
+  
+  .custom-loader::before,
+  .custom-loader::after {
+    content: "";
+    grid-area: 1/1;
+    background: repeating-conic-gradient(#0000 0 35deg,currentColor 0 90deg);
+    -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 3px),#000 0);
+    border-radius: 50%;
+  }
+  .custom-loader::after {
+    margin:20%;
+  }
+  
+  @keyframes s8 {
+    100% {transform: rotate(1turn)}
+  }
