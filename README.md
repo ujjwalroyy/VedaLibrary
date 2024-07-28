@@ -1,1 +1,1 @@
-Any query 👉ujjwaujjwalkumaroyy@gmail.com 
+Any query 👉ujjwalkumaroyy@gmail.com 
