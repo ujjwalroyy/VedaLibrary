@@ -10,8 +10,12 @@ const SearchBar = () => {
   useEffect(() => {
     const fetchPickupOptions = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/YOUR_PICKUP_OPTIONS_API_ENDPOINT");
-        setPickupOptions(response.data);
+        const response = await axios.get("http://localhost:3000/api/v1/chapters/pickup-options");
+        if (Array.isArray(response.data)) {
+          setPickupOptions(response.data);
+        } else {
+          console.error("Unexpected data format:", response.data);
+        }
       } catch (error) {
         console.error("Error fetching pickup options:", error.message);
       }
@@ -21,9 +25,20 @@ const SearchBar = () => {
   }, []);
 
   const handleSearch = async () => {
+    if (!searchTerm.trim()) {
+      console.warn("Search term is empty.");
+      return;
+    }
+
     try {
       const response = await axios.get(
-        `http://localhost:3000/YOUR_SEARCH_API_ENDPOINT?query=${searchTerm}&pickup=${selectedOption}`
+        `http://localhost:3000/api/v1/chapters/search`,
+        {
+          params: {
+            query: searchTerm,
+            pickup: selectedOption || undefined,
+          },
+        }
       );
       setSearchResults(response.data);
     } catch (error) {
@@ -32,7 +47,7 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="flex items-center justify-center flex-col border-4 border-r-4 border-solid mb-2 ">
+    <div className="flex items-center justify-center flex-col border-4 border-r-4 border-solid mb-2">
       <input
         type="text"
         placeholder="Search..."
@@ -59,9 +74,15 @@ const SearchBar = () => {
         Search
       </button>
       <div>
-        {searchResults.map((result) => (
-          <div key={result.id}>{result.name}</div>
-        ))}
+        {searchResults.length > 0 ? (
+          searchResults.map((result) => (
+            <div key={result.id} className="py-2 border-b border-gray-300">
+              {result.name}
+            </div>
+          ))
+        ) : (
+          <p className="py-2">No results found.</p>
+        )}
       </div>
     </div>
   );

@@ -71,15 +71,15 @@ function ChapterPage() {
           </div>
         ) : (
           <div className="">
-            <div className="w-[800px] mb-7 bg-yellow-400 font-text p-2 rounded-xl shadow-lg">
+            <div className="w-[800px] mb-7 bg-yellow-200 font-text p-2 rounded-xl shadow-lg">
               {summary}
             </div>
 
             {Array.isArray(verse) &&
               verse.map((data) => (
                 <div key={data?.verse_number} onClick={clickHandler} id={data?.verse_number}>
-                  <div className="bg-yellow-400 w-[450px] text-center rounded-md gap-3 mb-3 cursor-pointer hover:scale-100">
-                    <p className="text-2xl text-white">Verse {data?.verse_number}</p>
+                  <div className="bg-yellow-200 w-[450px] text-center rounded-md gap-3 mb-3 cursor-pointer hover:scale-100">
+                    <p className="text-2xl text-orange-500">Verse {data?.verse_number}</p>
                     <hr />
                     <p className="mt-1">{data?.text}</p>
                   </div>

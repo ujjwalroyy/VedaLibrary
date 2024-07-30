@@ -1,18 +1,15 @@
-// routes/chapter.js
-
 const express = require("express");
-const router = express.Router();
+const app = express();
+const port = 3000;
 
-// Dummy data for demonstration
-const pickupOptions = [
-  { id: 1, value: 'option1', label: 'Option 1' },
-  { id: 2, value: 'option2', label: 'Option 2' },
-  // Add more options as needed
-];
+const pickupOptionsRoute = require("./routes/pickupOptions");
+const searchRoute = require("./routes/search");
 
-// Route to get pickup options
-router.get("/pickup-options", (req, res) => {
-  res.json(pickupOptions); // Return an array of pickup options
+app.use(express.json()); 
+
+app.use("/api/v1/chapters", pickupOptionsRoute);
+app.use("/api/v1/chapters", searchRoute);
+
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
 });
-
-module.exports = router;
